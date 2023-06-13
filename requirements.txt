@@ -1,0 +1,7 @@
+#Modul
+git+https://github.com/JustAnotherArchivist/snscrape.git
+nltk
+indoNLP
+Sastrawi
+googletrans==4.0.0-rc1
+textblob
