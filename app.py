@@ -21,6 +21,8 @@ nltk.download('punkt') #Mendapatkan kata yang tidak terdapat pada kamus
 
 #Membuat list sementara
 tweets_list = []
+positif = []
+negatif = []
 
 #Mengolah kata
 class Prepocessing:
@@ -98,6 +100,24 @@ def analize_sentiment(tweet):
     else:
         return 'Negatif'
 
+def filter_Pos(t_list):
+    temp = []
+    for i in range(len(t_list)):
+        if t_list[i][1] == "Positif":
+            temp.append(t_list[i])
+        else:
+            pass
+    return temp
+
+def filter_Neg(t_list):
+    temp = []
+    for j in range(len(t_list)):
+        if t_list[j][1] == "Negatif":
+            temp.append(t_list[j])
+        else:
+            pass
+    return temp
+        
 def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
     pos = 0
     neg = 0
@@ -113,7 +133,9 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                 neg += 1
             else:
                 pass
-
+       
+    positif = filter_Pos(tweets_list)
+    negatif = filter_Neg(tweets_list)
 
 ################################################################
 #GUI
@@ -143,7 +165,9 @@ with tab2:
         st.write("Output :")
         Crawling_tweets(10, "Ganjar Pranowo", "Prabowo")
         st.write(tweets_list)
-        st.write("Masih terdapat kekurangan pada sistem berikut dan bisa dijadikan bahan untuk membuat sistem yang lebih kompleks")
+        st.write("Data yang diperoleh akan di pisah berdasarkan section 'Positif' dan 'Negatif'")
+        st.write("Positif : {}".format(positif))
+        st.write("Negatif : {}".format(negatif))
         
     else:
         st.write("Output :")
