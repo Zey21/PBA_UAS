@@ -181,9 +181,9 @@ with tab2:
         st.write("Data yang diperoleh akan di pisah berdasarkan section 'Positif' dan 'Negatif'")
         positif = np.array(filter_Pos(tweets_list))
         negatif = np.array(filter_Neg(tweets_list))
-        st.write("Positif :)
+        st.write("Positif :")
         st.write(pd.DataFrame(positif))
-        st.write("Negatif :)
+        st.write("Negatif :")
         st.write(pd.DataFrame(negatif))
         
     else:
