@@ -182,9 +182,13 @@ with tab2:
         positif = np.array(filter_Pos(tweets_list))
         negatif = np.array(filter_Neg(tweets_list))
         st.write("Positif :")
-        st.write(pd.DataFrame(positif))
+        positif = pd.DataFrame(positif)
+        positif.columns = ["Comment","Section"]
+        st.write(positif)
         st.write("Negatif :")
-        st.write(pd.DataFrame(negatif))
+        negatif = pd.DataFrame(negatif)
+        negatif.columns = ["Comment","Section"]
+        st.write()
         
     else:
         st.write("Output :")
