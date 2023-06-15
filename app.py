@@ -5,6 +5,7 @@ import snscrape.modules.twitter as sntwitter #Scrapper
 import re #regex tools buat manipulasi text
 import string #string population
 import nltk #Tools
+import requests #geturl
 from nltk.tokenize import word_tokenize #tokenize
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory #Stemmer
 from textblob import TextBlob #Tools - IDF - Analisis Sentiment
@@ -75,6 +76,20 @@ def translate_text(text, source_lang, target_lang):
     translation = translator.translate(text, src=source_lang, dest=target_lang)
     return translation.text
 
+def translate_word(word, target_lang):
+    url = 'https://translate.googleapis.com/translate_a/single'
+    params = {
+        'client': 'gtx',
+        'sl': 'auto',
+        'tl': target_lang,
+        'dt': 't',
+        'q': word
+    }
+    response = requests.get(url, params=params)
+    translation = response.json()[0][0][0]
+    return translation
+# hasil_terjemahan = translate_word(kata, bahasa)
+
 def clean_tweet(tweet):
     return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\s+)"," ",tweet).split())
 
@@ -91,7 +106,8 @@ def clean_text(text):
 # sentimens analisis dengan polarity menggunakan library textblob
 def analize_sentiment(tweet):
     result = clean_text(tweet)
-    tld = translate_text(result, 'id', 'en') #Translate tweet
+    #tld = translate_text(result, 'id', 'en') #Translate tweet(sering error)
+    tld = translate_word(result, 'en') #alternatif translate
     analysis = TextBlob(tld)
     if analysis.sentiment.polarity > 0:
         return 'Positif'
