@@ -189,6 +189,7 @@ with tab2:
         negatif = pd.DataFrame(negatif)
         negatif.columns = ["Comment","Section"]
         st.write(negatif)
+        st.markdown("Kesimpulan dari beberapa data diatas, analisis sentiment belum dapat mengidentifikasi kalimat sarkas atau kalimat yang bermakna ambigu, sebab tools ini hanya mengidentifikasi berdasarkan polarity saja")
         
     else:
         st.write("Output :")
