@@ -179,10 +179,10 @@ with tab2:
         Crawling_tweets(10, "Ganjar Pranowo", "Prabowo")
         st.write(tweets_list)
         st.write("Data yang diperoleh akan di pisah berdasarkan section 'Positif' dan 'Negatif'")
-        positif = filter_Pos(tweets_list)
-        negatif = filter_Neg(tweets_list)
-        st.write("Positif : {}".format(positif))
-        st.write("Negatif : {}".format(negatif))
+        positif = np.array(filter_Pos(tweets_list))
+        negatif = np.array(filter_Neg(tweets_list))
+        st.write("Positif : {}".format(pd.DataFrame(positif)))
+        st.write("Negatif : {}".format(pd.DataFrame(negatif)))
         
     else:
         st.write("Output :")
