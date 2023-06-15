@@ -138,8 +138,8 @@ def filter_pharsePos(comment):
     word_prep = Prepocessing
     word_temp = comment.tolist()
     word_temp = word_temp[0]
-    word_prep = word_prep.tokenize(word_temp)
-    return word_prep
+    word_temp = word_prep.tokenize(word_temp)
+    return word_temp
         
 def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
     pos = 0
