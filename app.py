@@ -150,9 +150,6 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
             else:
                 pass
        
-    positif = filter_Pos(tweets_list)
-    negatif = filter_Neg(tweets_list)
-
 ################################################################
 #GUI
 
@@ -182,6 +179,8 @@ with tab2:
         Crawling_tweets(10, "Ganjar Pranowo", "Prabowo")
         st.write(tweets_list)
         st.write("Data yang diperoleh akan di pisah berdasarkan section 'Positif' dan 'Negatif'")
+        positif = filter_Pos(tweets_list)
+        negatif = filter_Neg(tweets_list)
         st.write("Positif : {}".format(positif))
         st.write("Negatif : {}".format(negatif))
         
