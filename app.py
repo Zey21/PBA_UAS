@@ -136,7 +136,7 @@ def filter_Neg(t_list):
 
 def filter_pharsePos(comment):
     word_prep = Prepocessing
-    word_temp = tolist(comment)
+    word_temp = to_list(comment)
     word_temp = word_temp[0]
     word_prep = word_prep.tokenize(word_temp)
     return word_prep
