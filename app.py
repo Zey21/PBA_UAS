@@ -177,7 +177,7 @@ with tab2:
     if st.button("Generate Data"):
         st.write("Output :")
         Crawling_tweets(10, "Ganjar Pranowo", "Prabowo")
-        st.write(tweets_list)
+        st.write(pd.DataFrame(np.array(tweets_list))
         st.write("Data yang diperoleh akan di pisah berdasarkan section 'Positif' dan 'Negatif'")
         positif = np.array(filter_Pos(tweets_list))
         negatif = np.array(filter_Neg(tweets_list))
@@ -188,7 +188,7 @@ with tab2:
         st.write("Negatif :")
         negatif = pd.DataFrame(negatif)
         negatif.columns = ["Comment","Section"]
-        st.write()
+        st.write(negatif)
         
     else:
         st.write("Output :")
