@@ -138,6 +138,7 @@ def filter_pharsePos(comment):
     word_prep = Prepocessing
     word_temp = comment.tolist()
     word_temp = word_temp[0]
+    st.write(word_temp, type(word_temp))
     word_temp = word_prep.tokenize(word_temp)
     return word_temp
         
