@@ -117,22 +117,28 @@ def analize_sentiment(tweet):
         return 'Negatif'
 
 def filter_Pos(t_list):
-    temp = []
-    for i in range(len(t_list)):
-        if t_list[i][1] == "Positif":
-            temp.append(t_list[i])
-        else:
-            pass
-    return temp
+    if t_list != [] or t_list != None :
+        temp = []
+        for i in range(len(t_list)):
+            if t_list[i][1] == "Positif":
+                temp.append(t_list[i])
+            else:
+                pass
+        return temp
+    else:
+        return None
 
 def filter_Neg(t_list):
-    temp = []
-    for j in range(len(t_list)):
-        if t_list[j][1] == "Negatif":
-            temp.append(t_list[j])
-        else:
-            pass
-    return temp
+    if t_list != [] or t_list != None :
+        temp = []
+        for j in range(len(t_list)):
+            if t_list[j][1] == "Negatif":
+                temp.append(t_list[j])
+            else:
+                pass
+        return temp
+    else :
+        return None
 
 def filter_pharsePos(comment):
     temp = []
