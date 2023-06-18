@@ -210,22 +210,22 @@ with tab2:
         Crawling_tweets(10, "Ganjar Pranowo", "Prabowo")
         st.write(pd.DataFrame(np.array(tweets_list)))
         st.write("Data yang diperoleh akan di pisah berdasarkan section 'Positif' dan 'Negatif'")
-        positif = np.array(filter_Pos(tweets_list))
-        negatif = np.array(filter_Neg(tweets_list))
+        positif_rd = np.array(filter_Pos(tweets_list))
+        negatif_rd = np.array(filter_Neg(tweets_list))
         pos_cln = positif[:]
         neg_cln = negatif[:]
         st.write("Positif :")
-        if positif != [] or len(positif) > 0 :
-            positif = pd.DataFrame(positif)
-            positif.columns = ["Comment","Section"]
-            st.write(positif)
+        if positif_rd != [] :
+            positif_rd = pd.DataFrame(positif_rd)
+            positif_rd.columns = ["Comment","Section"]
+            st.write(positif_rd)
         else :
             pass
         st.write("Negatif :")
-        if negatif != [] or len(negatif) > 0 :
-            negatif = pd.DataFrame(negatif)
-            negatif.columns = ["Comment","Section"]
-            st.write(negatif)
+        if negatif_rd != [] :
+            negatif_rd = pd.DataFrame(negatif_rd)
+            negatif_rd.columns = ["Comment","Section"]
+            st.write(negatif_rd)
         else :
             pass
         st.markdown("Kesimpulan dari beberapa data diatas, analisis sentiment belum dapat mengidentifikasi kalimat sarkas atau kalimat yang bermakna ambigu, sebab tools ini hanya mengidentifikasi berdasarkan polarity saja")
