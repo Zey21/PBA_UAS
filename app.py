@@ -143,9 +143,9 @@ def filter_Neg(t_list):
 def filter_pharsePos(comment):
     temp = []
     word_prep = Prepocessing()
-    word_temp = comment.tolist() #list 2D atau 1D ?
-    st.write(word_temp) #Untuk melakukan debug mencari tau value serta ukuran dari list itu sendiri
-    for i in range(len(word_temp)):
+    word_temp = comment.tolist() #list 2D berisi comment dan label
+    size_temp = np.array(word_temp) #Dibuat dalam bentuk array terlebih dahulu sebelum dicek menggunakan fungsi shape
+    for i in range(size_temp.shape[0]): #akan mengambil panjang shape pada jumlah baris
         word_temp = "".join(word_temp[i][0])
         word_temp = word_prep.tokenize(word_temp)
         temp.append(word_temp)
