@@ -206,13 +206,15 @@ with tab2:
         pos_cln = positif[:]
         neg_cln = negatif[:]
         st.write("Positif :")
-        positif = pd.DataFrame(positif)
-        positif.columns = ["Comment","Section"]
-        st.write(positif)
+        if positif != [] :
+            positif = pd.DataFrame(positif)
+            positif.columns = ["Comment","Section"]
+            st.write(positif)
         st.write("Negatif :")
-        negatif = pd.DataFrame(negatif)
-        negatif.columns = ["Comment","Section"]
-        st.write(negatif)
+        if negatif != [] :
+            negatif = pd.DataFrame(negatif)
+            negatif.columns = ["Comment","Section"]
+            st.write(negatif)
         st.markdown("Kesimpulan dari beberapa data diatas, analisis sentiment belum dapat mengidentifikasi kalimat sarkas atau kalimat yang bermakna ambigu, sebab tools ini hanya mengidentifikasi berdasarkan polarity saja")
         st.write("Mencoba untuk mengambil kata positif dan negatif di setiap comment")
         splt_pos = filter_pharsePos(pos_cln)
