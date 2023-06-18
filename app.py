@@ -179,7 +179,7 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                     detect_subj = detect_word(text, tokoh)
                     detect_subj2 = detect_word(text, tokoh2)
                     detect_subj3 = detect_word(text, tokoh3)
-                    temp = [detect_subj, detect_subj2, detect_subj3] #tempat untuk menempatkan return detect_subj
+                    temp = [int(detect_subj), int(detect_subj2), int(detect_subj3)] #tempat untuk menempatkan return detect_subj
                     cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
                     position = int(temp.index(cek)) #mendapatkan index nama didalam temp
                     if position == 0:
@@ -192,7 +192,7 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                 else :
                     detect_subj = detect_word(text, tokoh)
                     detect_subj2 = detect_word(text, tokoh2)
-                    temp = [detect_subj, detect_subj2] #tempat untuk menempatkan return detect_subj
+                    temp = [int(detect_subj), int(detect_subj2)] #tempat untuk menempatkan return detect_subj
                     cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
                     position = int(temp.index(cek)) #mendapatkan index nama didalam temp
                     if position == 0:
@@ -207,7 +207,7 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                     detect_subj = detect_word(text, tokoh)
                     detect_subj2 = detect_word(text, tokoh2)
                     detect_subj3 = detect_word(text, tokoh3)
-                    temp = [detect_subj, detect_subj2, detect_subj3] #tempat untuk menempatkan return detect_subj
+                    temp = [int(detect_subj), int(detect_subj2), int(detect_subj3)] #tempat untuk menempatkan return detect_subj
                     cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
                     position = int(temp.index(cek)) #mendapatkan index nama didalam temp
                     if position == 0:
@@ -220,7 +220,7 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                 else :
                     detect_subj = detect_word(text, tokoh)
                     detect_subj2 = detect_word(text, tokoh2)
-                    temp = [detect_subj, detect_subj2] #tempat untuk menempatkan return detect_subj
+                    temp = [int(detect_subj), int(detect_subj2)] #tempat untuk menempatkan return detect_subj
                     cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
                     position = int(temp.index(cek)) #mendapatkan index nama didalam temp
                     if position == 0:
