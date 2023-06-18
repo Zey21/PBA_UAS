@@ -219,11 +219,15 @@ with tab2:
             positif = pd.DataFrame(positif)
             positif.columns = ["Comment","Section"]
             st.write(positif)
+        else :
+            pass
         st.write("Negatif :")
         if negatif != [] :
             negatif = pd.DataFrame(negatif)
             negatif.columns = ["Comment","Section"]
             st.write(negatif)
+        else :
+            pass
         st.markdown("Kesimpulan dari beberapa data diatas, analisis sentiment belum dapat mengidentifikasi kalimat sarkas atau kalimat yang bermakna ambigu, sebab tools ini hanya mengidentifikasi berdasarkan polarity saja")
         st.write("Mencoba untuk mengambil kata positif dan negatif di setiap comment")
         st.write("Split data per comment pada label Positif :")
