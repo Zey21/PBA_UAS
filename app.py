@@ -125,11 +125,11 @@ def filter_Pos(t_list): #memfilter komentar berdasarkan labelnya
         for i in range(len(t_list)):
             if t_list[i][1] == "Positif":
                 subject = subject_listpos[count]
-                st.write(subject)
                 temp.append([subject, t_list[i]])
                 count += 1
             else:
                 pass
+        st.write(temp)
         return temp
     else:
         return None
