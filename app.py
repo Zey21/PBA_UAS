@@ -149,6 +149,16 @@ def filter_pharsePos(comment):
         word = word_prep.tokenize(word)
         temp.append(word)
     return temp
+
+def filter_pharseNeg(comment):
+    temp = []
+    word_prep = Prepocessing()
+    word_temp = comment.tolist() #list 2D berisi comment dan label
+    for j in range(len(word_temp)):
+        word = "".join(word_temp[j][0]) 
+        word = word_prep.tokenize(word)
+        temp.append(word)
+    return temp
         
 def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
     pos = 0
@@ -216,8 +226,12 @@ with tab2:
             st.write(negatif)
         st.markdown("Kesimpulan dari beberapa data diatas, analisis sentiment belum dapat mengidentifikasi kalimat sarkas atau kalimat yang bermakna ambigu, sebab tools ini hanya mengidentifikasi berdasarkan polarity saja")
         st.write("Mencoba untuk mengambil kata positif dan negatif di setiap comment")
+        st.write("Split data per comment pada label Positif :")
         splt_pos = filter_pharsePos(pos_cln)
         st.write(pd.DataFrame(splt_pos))
+        st.write("Split data per comment pada label Negatif :")
+        splt_neg = filter_pharseNeg(neg_cln)
+        st.write(pd.DataFrame(splt_neg))
         
     else:
         st.write("Output :")
