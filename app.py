@@ -212,8 +212,8 @@ with tab2:
         st.write("Data yang diperoleh akan di pisah berdasarkan section 'Positif' dan 'Negatif'")
         positif_rd = np.array(filter_Pos(tweets_list))
         negatif_rd = np.array(filter_Neg(tweets_list))
-        pos_cln = positif[:]
-        neg_cln = negatif[:]
+        pos_cln = positif_rd[:] #clone data dari positif_rd
+        neg_cln = negatif_rd[:] #clone data dari negatif_rd
         st.write("Positif :")
         positif_rd = pd.DataFrame(positif_rd)
         positif_rd.columns = ["Comment","Section"]
