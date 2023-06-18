@@ -213,11 +213,11 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                     cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
                     position = int(temp.index(cek)) #mendapatkan index nama didalam temp
                     if position == 0:
-                        subject_listpos.append(tokoh)
+                        subject_listneg.append(tokoh)
                     elif position == 1:
-                        subject_listpos.append(tokoh2)
+                        subject_listneg.append(tokoh2)
                     else:
-                        subject_listpos.append(tokoh3)
+                        subject_listneg.append(tokoh3)
                     
                 else :
                     detect_subj = detect_word(text, tokoh)
@@ -226,9 +226,9 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                     cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
                     position = int(temp.index(cek)) #mendapatkan index nama didalam temp
                     if position == 0:
-                        subject_listpos.append(tokoh)
+                        subject_listneg.append(tokoh)
                     elif position == 1:
-                        subject_listpos.append(tokoh2)
+                        subject_listneg.append(tokoh2)
                 
             else:
                 pass
