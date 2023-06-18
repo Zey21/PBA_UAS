@@ -129,7 +129,6 @@ def filter_Pos(t_list): #memfilter komentar berdasarkan labelnya
                 count += 1
             else:
                 pass
-        st.write(temp)
         return temp
     else:
         return None
