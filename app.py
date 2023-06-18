@@ -145,7 +145,6 @@ def filter_pharsePos(comment):
     word_prep = Prepocessing()
     word_temp = comment.tolist() #list 2D berisi comment dan label
     for i in range(len(word_temp)):
-        st.write("data ke -",i,"dari jumlah data ke-",len(word_temp))
         word = "".join(word_temp[i][0]) 
         word = word_prep.tokenize(word)
         temp.append(word)
@@ -218,7 +217,7 @@ with tab2:
         st.markdown("Kesimpulan dari beberapa data diatas, analisis sentiment belum dapat mengidentifikasi kalimat sarkas atau kalimat yang bermakna ambigu, sebab tools ini hanya mengidentifikasi berdasarkan polarity saja")
         st.write("Mencoba untuk mengambil kata positif dan negatif di setiap comment")
         splt_pos = filter_pharsePos(pos_cln)
-        st.write(splt_pos)
+        st.write(pd.DataFrame(splt_pos))
         
     else:
         st.write("Output :")
