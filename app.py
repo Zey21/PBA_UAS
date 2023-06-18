@@ -215,14 +215,14 @@ with tab2:
         pos_cln = positif[:]
         neg_cln = negatif[:]
         st.write("Positif :")
-        if positif not [] :
+        if positif != [] or len(positif) > 0 :
             positif = pd.DataFrame(positif)
             positif.columns = ["Comment","Section"]
             st.write(positif)
         else :
             pass
         st.write("Negatif :")
-        if negatif not [] :
+        if negatif != [] or len(negatif) > 0 :
             negatif = pd.DataFrame(negatif)
             negatif.columns = ["Comment","Section"]
             st.write(negatif)
