@@ -147,7 +147,7 @@ def filter_pharsePos(comment):
     for i in range(len(word_temp)):
         st.write("data ke -",i,"dari jumlah data ke-",len(word_temp))
         word = "".join(word_temp[i][0]) 
-        word = word_prep.tokenize(word_temp)
+        word = word_prep.tokenize(word)
         temp.append(word)
     return temp
         
