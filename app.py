@@ -24,6 +24,8 @@ nltk.download('punkt') #Mendapatkan kata yang tidak terdapat pada kamus
 tweets_list = []
 positif = []
 negatif = []
+subject_listpos = []
+subject_listneg = []
 
 #Mengolah kata
 class Prepocessing:
@@ -71,12 +73,12 @@ class Prepocessing:
     def stemming(self, text): #stemming -> mengganti kata menjadi kata dasar
         return " ".join([self.stemmer.stem(kata) for kata in text])
 
-def translate_text(text, source_lang, target_lang):
+def translate_text(text, source_lang, target_lang): #untuk mentranslate kata
     translator = Translator()
     translation = translator.translate(text, src=source_lang, dest=target_lang)
     return translation.text
 
-def translate_word(word, target_lang):
+def translate_word(word, target_lang): #untuk mentranslate kata
     url = 'https://translate.googleapis.com/translate_a/single'
     params = {
         'client': 'gtx',
@@ -90,10 +92,10 @@ def translate_word(word, target_lang):
     return translation
 # hasil_terjemahan = translate_word(kata, bahasa)
 
-def clean_tweet(tweet):
+def clean_tweet(tweet): #membuat format text tweets menjadi string
     return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\s+)"," ",tweet).split())
 
-def clean_text(text):
+def clean_text(text): #membersihkan kalimat yang tidak dibutuhkan
     clean = Prepocessing()
     result = clean.remove_unwanted(clean_tweet(text))
     result = clean.tokenize(result)
@@ -116,49 +118,51 @@ def analize_sentiment(tweet):
     else:
         return 'Negatif'
 
-def filter_Pos(t_list):
+def filter_Pos(t_list): #memfilter komentar berdasarkan labelnya
+    count = 0
     if t_list != [] or t_list != None :
         temp = []
         for i in range(len(t_list)):
             if t_list[i][1] == "Positif":
-                temp.append(t_list[i])
+                temp.append([subject_listpos[count], t_list[i]])
+                count += 1
             else:
                 pass
         return temp
     else:
         return None
 
-def filter_Neg(t_list):
+def filter_Neg(t_list): #memfilter komentar berdasarkan labelnya
+    count = 0
     if t_list != [] or t_list != None :
         temp = []
         for j in range(len(t_list)):
             if t_list[j][1] == "Negatif":
-                temp.append(t_list[j])
+                temp.append([subject_listneg[count], t_list[j]])
+                count += 1
             else:
                 pass
         return temp
     else :
         return None
 
-def filter_pharsePos(comment):
+def filter_words(comment): #memisahkan kalimat agar menjadi perkata untuk ditampilkan
     temp = []
     word_prep = Prepocessing()
     word_temp = comment.tolist() #list 2D berisi comment dan label
     for a in range(len(word_temp)):
-        word = "".join(word_temp[a][0]) 
+        word = "".join(word_temp[a][1]) #mengambil value berupa komentar
         word = word_prep.tokenize(word)
         temp.append(word)
     return temp
 
-def filter_pharseNeg(comment):
-    temp = []
-    word_prep = Prepocessing()
-    word_temp = comment.tolist() #list 2D berisi comment dan label
-    for b in range(len(word_temp)):
-        word = "".join(word_temp[b][0]) 
-        word = word_prep.tokenize(word)
-        temp.append(word)
-    return temp
+def detect_word(sentence, target_word): #return berupa index target
+    words = sentence.split()
+    if target_word in words: #Jika terdeteksi akan mereturnkan indexnya
+        get_indeks = int(words.index(target_word)) #memastikan nilai berupa integer
+        return get_indeks
+    else: #Jika tidak mereturn kan nilai terbesar 99999
+        return len
         
 def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
     pos = 0
@@ -166,13 +170,64 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
     for i, tweet in enumerate(sntwitter.TwitterSearchScraper( tokoh or tokoh2 or tokoh3 ).get_items()):
         if i > jumlah :
             break
-        if analize_sentiment(tweet.content) != "Netral" :
+        else :
+            text = clean_text(tweet.content) #return berupa string
             if analize_sentiment(tweet.content) == "Positif" and pos != 10:
-                tweets_list.append([clean_text(tweet.content), analize_sentiment(tweet.content)])
+                tweets_list.append([text , analize_sentiment(tweet.content)])
                 pos += 1
+                if tokoh3 != "": #mengambil nama yang disebut terlebih dahulu untuk menunjukan kepada siapa komentar ditulis(pada umumnya)
+                    detect_subj = detect_word(text, tokoh)
+                    detect_subj2 = detect_word(text, tokoh2)
+                    detect_subj3 = detect_word(text, tokoh3)
+                    temp = [detect_subj, detect_subj2, detect_subj3] #tempat untuk menempatkan return detect_subj
+                    cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
+                    position = int(temp.index(cek)) #mendapatkan index nama didalam temp
+                    if position == 0:
+                        subject_listpos.append(tokoh)
+                    elif position == 1:
+                        subject_listpos.append(tokoh2)
+                    else:
+                        subject_listpos.append(tokoh3)
+                    
+                else :
+                    detect_subj = detect_word(text, tokoh)
+                    detect_subj2 = detect_word(text, tokoh2)
+                    temp = [detect_subj, detect_subj2] #tempat untuk menempatkan return detect_subj
+                    cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
+                    position = int(temp.index(cek)) #mendapatkan index nama didalam temp
+                    if position == 0:
+                        subject_listpos.append(tokoh)
+                    elif position == 1:
+                        subject_listpos.append(tokoh2)
+                    
             elif analize_sentiment(tweet.content) == "Negatif" and neg != 10:
-                tweets_list.append([clean_text(tweet.content), analize_sentiment(tweet.content)])
+                tweets_list.append([text , analize_sentiment(tweet.content)])
                 neg += 1
+                if tokoh3 != "": #mengambil nama yang disebut terlebih dahulu untuk menunjukan kepada siapa komentar ditulis(pada umumnya)
+                    detect_subj = detect_word(text, tokoh)
+                    detect_subj2 = detect_word(text, tokoh2)
+                    detect_subj3 = detect_word(text, tokoh3)
+                    temp = [detect_subj, detect_subj2, detect_subj3] #tempat untuk menempatkan return detect_subj
+                    cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
+                    position = int(temp.index(cek)) #mendapatkan index nama didalam temp
+                    if position == 0:
+                        subject_listpos.append(tokoh)
+                    elif position == 1:
+                        subject_listpos.append(tokoh2)
+                    else:
+                        subject_listpos.append(tokoh3)
+                    
+                else :
+                    detect_subj = detect_word(text, tokoh)
+                    detect_subj2 = detect_word(text, tokoh2)
+                    temp = [detect_subj, detect_subj2] #tempat untuk menempatkan return detect_subj
+                    cek = min(temp) #mendapatkan nama siapa yang lebih awal ditulis
+                    position = int(temp.index(cek)) #mendapatkan index nama didalam temp
+                    if position == 0:
+                        subject_listpos.append(tokoh)
+                    elif position == 1:
+                        subject_listpos.append(tokoh2)
+                
             else:
                 pass
       
@@ -180,6 +235,7 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
         pass
     else:
         Crawling_tweets(jumlah, tokoh, tokoh2, tokoh3)
+
     
 ################################################################
 #GUI
@@ -216,19 +272,19 @@ with tab2:
         neg_cln = negatif_rd[:] #clone data dari negatif_rd
         st.write("Positif :")
         positif_rd = pd.DataFrame(positif_rd)
-        positif_rd.columns = ["Comment","Section"]
+        positif_rd.columns = ["Subject","Comment","Section"]
         st.write(positif_rd)
         st.write("Negatif :")
         negatif_rd = pd.DataFrame(negatif_rd)
-        negatif_rd.columns = ["Comment","Section"]
+        negatif_rd.columns = ["Subject","Comment","Section"]
         st.write(negatif_rd)
         st.markdown("Kesimpulan dari beberapa data diatas, analisis sentiment belum dapat mengidentifikasi kalimat sarkas atau kalimat yang bermakna ambigu, sebab tools ini hanya mengidentifikasi berdasarkan polarity saja")
         st.write("Mencoba untuk mengambil kata positif dan negatif di setiap comment")
         st.write("Split data per comment pada label Positif :")
-        splt_pos = filter_pharsePos(pos_cln)
+        splt_pos = filter_words(pos_cln)
         st.write(pd.DataFrame(splt_pos))
         st.write("Split data per comment pada label Negatif :")
-        splt_neg = filter_pharseNeg(neg_cln)
+        splt_neg = filter_words(neg_cln)
         st.write(pd.DataFrame(splt_neg))
         
     else:
