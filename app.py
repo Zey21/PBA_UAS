@@ -176,7 +176,7 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
             else:
                 pass
       
-    if tweets_list != [] :
+    if tweets_list != [] and pos != 0 and neg != 0 :
         pass
     else:
         Crawling_tweets(jumlah, tokoh, tokoh2, tokoh3)
