@@ -142,7 +142,7 @@ def filter_Neg(t_list):
 
 def filter_pharsePos(comment):
     temp = []
-    word_prep = Prepocessing
+    word_prep = Prepocessing()
     word_temp = comment.tolist()
     for i in range(len(word_temp)):
         word_temp = "".join(word_temp[i][0])
