@@ -146,6 +146,7 @@ def filter_pharsePos(comment):
     word_temp = comment.tolist() #list 2D berisi comment dan label
     size_temp = np.array(word_temp) #Dibuat dalam bentuk array terlebih dahulu sebelum dicek menggunakan fungsi shape
     for i in range(size_temp.shape[0]): #akan mengambil panjang shape pada jumlah baris
+        st.write("data ke-",i,", dari jumlah data ke-:", size_temp.shape[0])
         word_temp = "".join(word_temp[i][0])
         word_temp = word_prep.tokenize(word_temp)
         temp.append(word_temp)
