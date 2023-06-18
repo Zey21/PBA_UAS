@@ -144,8 +144,8 @@ def filter_pharsePos(comment):
     temp = []
     word_prep = Prepocessing()
     word_temp = comment.tolist() #list 2D berisi comment dan label
-    for i in range(len(word_temp)):
-        word = "".join(word_temp[i][0]) 
+    for a in range(len(word_temp)):
+        word = "".join(word_temp[a][0]) 
         word = word_prep.tokenize(word)
         temp.append(word)
     return temp
@@ -154,8 +154,8 @@ def filter_pharseNeg(comment):
     temp = []
     word_prep = Prepocessing()
     word_temp = comment.tolist() #list 2D berisi comment dan label
-    for j in range(len(word_temp)):
-        word = "".join(word_temp[j][0]) 
+    for b in range(len(word_temp)):
+        word = "".join(word_temp[b][0]) 
         word = word_prep.tokenize(word)
         temp.append(word)
     return temp
@@ -215,14 +215,14 @@ with tab2:
         pos_cln = positif[:]
         neg_cln = negatif[:]
         st.write("Positif :")
-        if positif != [] :
+        if positif not [] :
             positif = pd.DataFrame(positif)
             positif.columns = ["Comment","Section"]
             st.write(positif)
         else :
             pass
         st.write("Negatif :")
-        if negatif != [] :
+        if negatif not [] :
             negatif = pd.DataFrame(negatif)
             negatif.columns = ["Comment","Section"]
             st.write(negatif)
