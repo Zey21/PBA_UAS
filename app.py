@@ -162,7 +162,7 @@ def detect_word(sentence, target_word): #return berupa index target
         get_indeks = int(words.index(target_word)) #memastikan nilai berupa integer
         return get_indeks
     else: #Jika tidak mereturn kan nilai terbesar 99999
-        return len
+        return 99999
         
 def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
     pos = 0
