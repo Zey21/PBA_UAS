@@ -12,6 +12,7 @@ from textblob import TextBlob #Tools - IDF - Analisis Sentiment
 from indoNLP.preprocessing import replace_slang #slank word
 from googletrans import Translator #Translator
 from nltk.corpus import stopwords #stopword
+import time
 ################################################################
 #Unduh korpus
 nltk.download('stopwords') #Mendapatkan list stopword indonesia
@@ -28,6 +29,8 @@ subject_listpos = []
 subject_listneg = []
 
 #Mengolah kata
+
+    
 class Prepocessing:
     def __init__(self):
         factory = StemmerFactory()
@@ -165,16 +168,33 @@ def detect_word(sentence, target_word): #return berupa index target
         return get_indeks
     else: #Jika tidak mereturn kan nilai terbesar 99999
         return 99999
+
+def print_with_overwrite(text):
+    # Menggunakan streamlit.empty untuk membuat placeholder kosong
+    placeholder = st.empty()
+    # Menggunakan metode placeholder.text untuk mengganti teks
+    placeholder.text(text)
+    # Menggunakan time.sleep untuk memberikan jeda sebelum mencetak teks berikutnya
+    time.sleep(1)
+    # Menghapus teks dengan mengganti placeholder dengan string kosong
+    placeholder.empty()
         
 def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
     pos = 0
     neg = 0
     for i, tweet in enumerate(sntwitter.TwitterSearchScraper( tokoh or tokoh2 or tokoh3 ).get_items()):
+        placeholder = st.empty()
         if i > jumlah :
             break
         else :
+            text = "{} / {}".format(i,jumlah)
+    
+            # Menggunakan metode placeholder.text untuk mengganti teks
+            placeholder.text(text)
+            time.sleep(1)
+            
             text = clean_text(tweet.content) #return berupa string
-            if analize_sentiment(tweet.content) == "Positif" and pos != 10:
+            if analize_sentiment(tweet.content) == "Positif" and pos != (len_comments/2):
                 tweets_list.append([text , analize_sentiment(tweet.content)])
                 pos += 1
                 if tokoh3 != "": #mengambil nama yang disebut terlebih dahulu untuk menunjukan kepada siapa komentar ditulis(pada umumnya)
@@ -202,7 +222,7 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                     elif position == 1:
                         subject_listpos.append(tokoh2)
                     
-            elif analize_sentiment(tweet.content) == "Negatif" and neg != 10:
+            elif analize_sentiment(tweet.content) == "Negatif" and neg != (len_comments/2):
                 tweets_list.append([text , analize_sentiment(tweet.content)])
                 neg += 1
                 if tokoh3 != "": #mengambil nama yang disebut terlebih dahulu untuk menunjukan kepada siapa komentar ditulis(pada umumnya)
@@ -228,14 +248,22 @@ def Crawling_tweets(jumlah, tokoh = "", tokoh2 = "", tokoh3 = ""):
                     if position == 0:
                         subject_listneg.append(tokoh)
                     elif position == 1:
-                        subject_listneg.append(tokoh2)
-                
+                        subject_listneg.append(tokoh2)    
             else:
                 pass
+            
+            placeholder.empty()
       
     if tweets_list != [] and pos != 0 and neg != 0 :
-        pass
+        warn = st.empty()
+        warn.text("Successfully")
+        time.sleep(2)
+        warn.empty()
     else:
+        warn = st.empty()
+        warn.text("Retrying...")
+        time.sleep(2)
+        warn.empty()
         Crawling_tweets(jumlah, tokoh, tokoh2, tokoh3)
 
     
@@ -263,9 +291,10 @@ sebagai bahan referensi dalam memilih pemimpinnya di kemudian hari pada tahun 20
 
 with tab2:
     st.subheader("Processing Data")
+    len_comments = st.number_input("Masukan jumlah komentar yang ingin didapat : ",min_value=10, max_value=1000)
     if st.button("Generate Data"):
         st.write("Output :")
-        Crawling_tweets(10, "Ganjar Pranowo", "Prabowo")
+        Crawling_tweets(len_comments, "Ganjar Pranowo", "Prabowo")
         st.write(pd.DataFrame(np.array(tweets_list)))
         st.write("Data yang diperoleh akan di pisah berdasarkan section 'Positif' dan 'Negatif'")
         positif_rd = np.array(filter_Pos(tweets_list))
